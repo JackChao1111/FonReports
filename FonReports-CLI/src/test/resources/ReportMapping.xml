@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ReportMapping>
+	<images>
+		<mapping id="DaanCatchemts" value="word/imgs/DaanCatchments.png" />
+		<mapping id="Test" value="word/imgs/Test.PNG" />
+	</images>
+	<texts>
+		<mapping id="rmo" value="第十河川局" />
+		<mapping id="basin" value="淡水河" /> 
+		<mapping id="year" value="2017" />
+		<mapping id="catchmentName" value="大安" />
+		<mapping id="catchmentId" value="C1140M101S" />
+	</texts>
+</ReportMapping>
