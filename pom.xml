@@ -42,8 +42,8 @@
 		<docx4j.version>3.3.7</docx4j.version>
 		<jcommand.verison>1.72</jcommand.verison>
 		<junit.version>4.12</junit.version>
-		<commons.utils.version>0.7.0</commons.utils.version>
-		<commons.version>0.6.5</commons.version>
+		<commons.utils.version>0.7.2</commons.utils.version>
+		<commons.version>0.7.0</commons.version>
 	</properties>
 
 	<dependencyManagement>
