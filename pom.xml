@@ -113,14 +113,6 @@
 					<artifactId>commons-logging</artifactId>
 				</exclusion>
 				<exclusion>
-					<groupId>org.apache.xmlgraphics</groupId>
-					<artifactId>batik-transcoder</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.xmlgraphics</groupId>
-					<artifactId>fop</artifactId>
-				</exclusion>
-				<exclusion>
 					<groupId>com.squareup.okhttp3</groupId>
 					<artifactId>okhttp</artifactId>
 				</exclusion>
