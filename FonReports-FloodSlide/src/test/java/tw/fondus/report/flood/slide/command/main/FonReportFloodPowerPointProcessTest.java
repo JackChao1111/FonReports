@@ -4,9 +4,13 @@ import org.junit.Test;
 
 import tw.fondus.report.flood.slide.command.process.ProgramArguments;
 
-
+/**
+ * The unit test of FonReportFloodPowerPointProcess.
+ * 
+ * @author Chao
+ *
+ */
 public class FonReportFloodPowerPointProcessTest {
-
 	@Test
 	public void run(){
 		String[] args = new String[]{
