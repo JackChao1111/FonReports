@@ -3,7 +3,13 @@ package tw.fondus.report.flood.slide.xml.http;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 
-public class AccumulatedSerie {
+/**
+ * The POJO of accumulated XML elements.
+ * 
+ * @author Chao
+ *
+ */
+public class Accumulated {
 	@Attribute
 	private String id;
 	

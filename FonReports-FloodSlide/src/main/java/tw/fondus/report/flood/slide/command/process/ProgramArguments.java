@@ -3,9 +3,9 @@ package tw.fondus.report.flood.slide.command.process;
 import com.beust.jcommander.Parameter;
 
 /**
- * Standard arguments of FonReports Command-Line Interface.
+ * Standard arguments of FonReport-FloodSlide Command-Line Interface.
  * 
- * @author Brad Chen
+ * @author Chao
  *
  */
 public class ProgramArguments {

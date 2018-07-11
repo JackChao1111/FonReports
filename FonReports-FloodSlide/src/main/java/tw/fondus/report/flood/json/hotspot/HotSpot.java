@@ -4,6 +4,12 @@ import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * The POJO of hot spot JSON object.
+ * 
+ * @author Chao
+ *
+ */
 public class HotSpot {
 	@SerializedName( "type" )
 	protected String type;

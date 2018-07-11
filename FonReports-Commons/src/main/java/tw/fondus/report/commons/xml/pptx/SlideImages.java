@@ -5,6 +5,7 @@ import java.util.List;
 import org.simpleframework.xml.ElementList;
 
 /**
+ * The POJO of slide images XML elements.
  * 
  * @author Chao
  *

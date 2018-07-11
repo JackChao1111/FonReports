@@ -6,17 +6,17 @@
 		<password>Password</password>
 	</login>
 	<accumulatedSeries>
-		<accumulatedSerie id="County">
+		<accumulated id="County">
 			<url>Rainfall/Catchments/Countys/Search/Accumulating?</url>
 			<start>1</start>
 			<end>6</end>
 			<backward>false</backward>
-		</accumulatedSerie>
-		<accumulatedSerie id="HotSpot">
+		</accumulated>
+		<accumulated id="HotSpot">
 			<url>Rainfall/Catchments/HotSpots/Floods/Search/Accumulating?</url>
 			<start>-17</start>
 			<end>6</end>
 			<backward>false</backward>
-		</accumulatedSerie>
+		</accumulated>
 	</accumulatedSeries>
 </HttpConfig>

@@ -12,12 +12,25 @@ import org.docx4j.dml.GraphicData;
 import org.pptx4j.pml.CTGraphicalObjectFrame;
 
 /**
+ * The service is used to create table for slide part.
  * 
  * @author Chao
  *
  */
 public interface Table {
 
+	/**
+	 * Common process for create table for slide part.
+	 * 
+	 * @param extcX
+	 * @param extcY
+	 * @param offX
+	 * @param offY
+	 * @param dmlFactory
+	 * @param pmlFactory
+	 * @param ctTable
+	 * @param graphicFrame
+	 */
 	default public void createTable( long extcX, long extcY, long offX, long offY, org.docx4j.dml.ObjectFactory dmlFactory,org.pptx4j.pml.ObjectFactory pmlFactory,
 			CTTable ctTable, CTGraphicalObjectFrame graphicFrame ) {
 		// Node Creation
@@ -62,8 +75,18 @@ public interface Table {
 		graphicData.getAny().add( tbl );
 	}
 	
+	/**
+	 * Create contents of table.
+	 * 
+	 * @param contents
+	 */
 	public void createGrid( List<String[]> contents );
 	
+	/**
+	 * Get table object.
+	 * 
+	 * @return
+	 */
 	public CTGraphicalObjectFrame getTable();
 
 }

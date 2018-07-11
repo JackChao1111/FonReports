@@ -16,6 +16,12 @@ import tw.fondus.commons.util.string.StringUtils;
 import tw.fondus.commons.util.svg.SVGUtils;
 import tw.fondus.commons.util.xml.Dom4JUtils;
 
+/**
+ * Create rainfall image from SVG file.
+ * 
+ * @author Chao
+ *
+ */
 public class SVGRainfallImageCreator {
 	public static final BigDecimal DEFAULT_LEVEL = new BigDecimal( 5 );
 	public static final BigDecimal LEVEL_1 = new BigDecimal( 30 );
@@ -24,6 +30,15 @@ public class SVGRainfallImageCreator {
 	public static final BigDecimal LEVEL_4 = new BigDecimal( 120 );
 	public static final BigDecimal LEVEL_5 = new BigDecimal( 150 );
 
+	/**
+	 * Create image by SVG file and pi accumulate series data of county rainfall.
+	 * 
+	 * @param propertiesMap
+	 * @param piAccumulateSeriesMap
+	 * @param svgPath
+	 * @param svgFileNameWithOutExt
+	 * @param exportPtah
+	 */
 	public void createImageBySvg( Map<String, PiAccumulatedSeries> piAccumulateSeriesMap, String svgPath,
 			String svgFileNameWithOutExt, String exportPtah ) {
 		try {

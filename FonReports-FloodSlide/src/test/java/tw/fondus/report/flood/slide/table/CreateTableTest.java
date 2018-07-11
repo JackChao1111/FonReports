@@ -1,6 +1,8 @@
 package tw.fondus.report.flood.slide.table;
 
-import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,14 +12,29 @@ import org.docx4j.openpackaging.parts.PresentationML.SlidePart;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.google.common.base.Preconditions;
+
+import tw.fondus.report.commons.util.ReportsPptxUtils;
+
+/**
+ * The unit test of create table into slide part of pptx.
+ * 
+ * @author Chao
+ *
+ */
 public class CreateTableTest {
+	private Path path;
 	private List<String[]> forecastingContents;
 	private List<String[]> hotSpotContents;
 	private List<String[]> countyEWContents;
 	private List<String[]> countyIWContents;
 
 	@Before
-	public void data() {
+	public void setUp() {
+		this.path = Paths.get( "src/test/resources/template/Template_WRAP_搜圖成果.pptx" );
+
+		Preconditions.checkState( Files.exists( this.path ), "File doesn't exist!" );
+
 		forecastingContents = new ArrayList<String[]>();
 		forecastingContents.add( new String[] { "台北地區", "1" } );
 		forecastingContents.add( new String[] { "新北地區", "2" } );
@@ -46,8 +63,7 @@ public class CreateTableTest {
 	@Test
 	public void run() {
 		try {
-			PresentationMLPackage presentationMLPackage = (PresentationMLPackage) OpcPackage
-					.load( new File( "src/test/resources/template/Template_WRAP_搜圖成果.pptx" ) );
+			PresentationMLPackage presentationMLPackage = (PresentationMLPackage) OpcPackage.load( this.path.toFile() );
 
 			// Forecasting6hrRainfallTable: 2302791, 5100911, 4944980, 1048887
 			// HotSpotCountTable: 2456798, 7080656, 4971557, 885490
@@ -57,25 +73,23 @@ public class CreateTableTest {
 			SlidePart slidePart1 = presentationMLPackage.getMainPresentationPart().getSlide( 1 );
 			Forecasting6hrRainfallTable fTable = new Forecasting6hrRainfallTable( 2302791, 5100911, 4944980, 1048887 );
 			fTable.createGrid( forecastingContents );
-			slidePart1.getContents().getCSld().getSpTree().getSpOrGrpSpOrGraphicFrame().add( fTable.getTable() );
+			ReportsPptxUtils.addTable( slidePart1, fTable.getTable() );
 
 			SlidePart slidePart2 = presentationMLPackage.getMainPresentationPart().getSlide( 2 );
 			HotSpotCountTable hTable = new HotSpotCountTable( 2456798, 7080656, 4971557, 885490 );
 			hTable.createGrid( hotSpotContents );
-			slidePart2.getContents().getCSld().getSpTree().getSpOrGrpSpOrGraphicFrame().add( hTable.getTable() );
+			ReportsPptxUtils.addTable( slidePart2, hTable.getTable() );
 
 			SlidePart slidePart3 = presentationMLPackage.getMainPresentationPart().getSlide( 3 );
 			CountyEWTable cEWTable = new CountyEWTable( 5546381, 2398034, 3429001, 985696 );
 			cEWTable.createGrid( countyEWContents );
-			slidePart3.getContents().getCSld().getSpTree().getSpOrGrpSpOrGraphicFrame().add( cEWTable.getTable() );
+			ReportsPptxUtils.addTable( slidePart3, cEWTable.getTable() );
 
 			CountyIWTable cIWTable = new CountyIWTable( 5546382, 2559095, 3429000, 3660730 );
 			cIWTable.createGrid( countyIWContents );
-			slidePart3.getContents().getCSld().getSpTree().getSpOrGrpSpOrGraphicFrame().add( cIWTable.getTable() );
+			ReportsPptxUtils.addTable( slidePart3, cIWTable.getTable() );
 
-			presentationMLPackage.getMainPresentationPart().addSlide( slidePart3 );
-
-			presentationMLPackage.save( new File( "src/test/resources/output.pptx" ) );
+			presentationMLPackage.save( Paths.get( "src/test/resources/output.pptx" ).toFile() );
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -13,6 +13,7 @@ import org.docx4j.dml.CTTableRow;
 import org.pptx4j.pml.CTGraphicalObjectFrame;
 
 /**
+ * Table for Taiwan county rainfall 6hr forecasting.
  * 
  * @author Chao
  *
@@ -34,7 +35,6 @@ public class Forecasting6hrRainfallTable implements Table {
 
 	@Override
 	public void createGrid( List<String[]> contents ) {
-
 		try {
 			CTTableGrid ctTableGrid = dmlFactory.createCTTableGrid();
 			CTTableCol gridCol = dmlFactory.createCTTableCol();

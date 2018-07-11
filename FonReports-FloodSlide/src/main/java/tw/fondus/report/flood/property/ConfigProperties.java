@@ -6,6 +6,12 @@ import java.io.InputStreamReader;
 import java.nio.file.Path;
 import java.util.Properties;
 
+/**
+ * The POJO of properties configuration.
+ * 
+ * @author Chao
+ *
+ */
 public class ConfigProperties {
 	private static Properties properties;
 	private static String templateFolder;

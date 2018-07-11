@@ -19,58 +19,94 @@ import org.pptx4j.pml.Pic;
 
 import tw.fondus.report.commons.xml.pptx.Image;
 
+/**
+ * The common utils of pptx report.
+ * 
+ * @author Chao
+ *
+ */
 public class ReportsPptxUtils {
 
+	/**
+	 * Open pptx from the path.
+	 * 
+	 * @param path
+	 * @return
+	 * @throws Docx4JException
+	 */
 	public static PresentationMLPackage open( String path ) throws Docx4JException {
-		PresentationMLPackage presentationMLPackage = (PresentationMLPackage) OpcPackage.load( new File( path ) );
-		return presentationMLPackage;
+		return open( Paths.get( path ) );
 	}
 
+	/**
+	 * Open pptx from the path.
+	 * 
+	 * @param path
+	 * @return
+	 * @throws Docx4JException
+	 */
 	public static PresentationMLPackage open( Path path ) throws Docx4JException {
 		PresentationMLPackage presentationMLPackage = (PresentationMLPackage) OpcPackage.load( path.toFile() );
 		return presentationMLPackage;
 	}
-	
-	public static void addTable(SlidePart slidePart, CTGraphicalObjectFrame graphicFrame) throws Docx4JException{
-		slidePart.getContents()
-		.getCSld()
-		.getSpTree()
-		.getSpOrGrpSpOrGraphicFrame()
-		.add( graphicFrame );
+
+	/**
+	 * Add a table object into slide part.
+	 * 
+	 * @param slidePart
+	 * @param graphicFrame
+	 * @throws Docx4JException
+	 */
+	public static void addTable( SlidePart slidePart, CTGraphicalObjectFrame graphicFrame ) throws Docx4JException {
+		slidePart.getContents().getCSld().getSpTree().getSpOrGrpSpOrGraphicFrame().add( graphicFrame );
 	}
 
+	/**
+	 * Add a image object into slide part.
+	 * 
+	 * @param presentationMLPackage
+	 * @param slidePart
+	 * @param imagePath
+	 * @param image
+	 * @throws Docx4JException
+	 * @throws Exception
+	 */
 	public static void addImage( PresentationMLPackage presentationMLPackage, SlidePart slidePart, String imagePath,
 			Image image ) throws Docx4JException, Exception {
-		slidePart.getContents()
-				.getCSld()
-				.getSpTree()
-				.getSpOrGrpSpOrGraphicFrame()
-				.add( createImageObject( presentationMLPackage, slidePart, imagePath, image ) );
+		slidePart.getContents().getCSld().getSpTree().getSpOrGrpSpOrGraphicFrame().add(
+				createImageObject( presentationMLPackage, slidePart, imagePath, image ) );
 	}
 
+	/**
+	 * Create a image object for the slide part of pptx.
+	 * 
+	 * @param presentationMLPackage
+	 * @param slidePart
+	 * @param imagePath
+	 * @param image
+	 * @return
+	 * @throws Exception
+	 */
 	public static Object createImageObject( PresentationMLPackage presentationMLPackage, SlidePart slidePart,
 			String imagePath, Image image ) throws Exception {
-		File imageFile = new File( imagePath );
-		BinaryPartAbstractImage imagePart = BinaryPartAbstractImage.createImagePart( presentationMLPackage, slidePart,
-				imageFile );
-
-		BigDecimal mumultiply = new BigDecimal( "12700" );
-		DecimalFormat df = new DecimalFormat( "0" );
-
-		HashMap<String, String> mappings = new HashMap<String, String>();
-		mappings.put( "id1", "4" );
-		mappings.put( "name", "Image" );
-		mappings.put( "descr", imageFile.getName() );
-		mappings.put( "rEmbedId", imagePart.getSourceRelationships().get( 0 ).getId() );
-		mappings.put( "offx", df.format( mumultiply.multiply( image.getLocation().getOffX() ).doubleValue() ) );
-		mappings.put( "offy", df.format( mumultiply.multiply( image.getLocation().getOffY() ).doubleValue() ) );
-		mappings.put( "extcx", df.format( mumultiply.multiply( image.getLocation().getExtcX() ).doubleValue() ) );
-		mappings.put( "extcy", df.format( mumultiply.multiply( image.getLocation().getExtcY() ).doubleValue() ) );
-
-		return XmlUtils.unmarshallFromTemplate( SAMPLE_PICTURE, mappings, Context.jcPML, Pic.class );
+		return createImageObject( presentationMLPackage, slidePart, imagePath, image.getLocation().getOffX(),
+				image.getLocation().getOffY(), image.getLocation().getExtcX(), image.getLocation().getExtcY() );
 	}
 
-	public static Object createPicture( PresentationMLPackage presentationMLPackage, SlidePart slidePart,
+	/**
+	 * Create a image object for the slide part of pptx.
+	 * 
+	 * @param presentationMLPackage
+	 * @param slidePart
+	 * @param imagePath
+	 * @param offX
+	 * @param offY
+	 * @param extcX
+	 * @param extcY
+	 * @return
+	 * @throws Exception
+	 */
+	public static Object createImageObject( PresentationMLPackage presentationMLPackage, SlidePart slidePart,
 			String imagePath, BigDecimal offX, BigDecimal offY, BigDecimal extcX, BigDecimal extcY ) throws Exception {
 		File imageFile = new File( imagePath );
 		BinaryPartAbstractImage imagePart = BinaryPartAbstractImage.createImagePart( presentationMLPackage, slidePart,
@@ -89,10 +125,13 @@ public class ReportsPptxUtils {
 		mappings.put( "extcx", df.format( mumultiply.multiply( extcX ).doubleValue() ) );
 		mappings.put( "extcy", df.format( mumultiply.multiply( extcY ).doubleValue() ) );
 
-		return XmlUtils.unmarshallFromTemplate( SAMPLE_PICTURE, mappings, Context.jcPML, Pic.class );
+		return XmlUtils.unmarshallFromTemplate( SAMPLE_IMAGE, mappings, Context.jcPML, Pic.class );
 	}
 
-	private static String SAMPLE_PICTURE = "<p:pic xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:p=\"http://schemas.openxmlformats.org/presentationml/2006/main\"> "
+	/**
+	 * Simple image content of xml.
+	 */
+	private static String SAMPLE_IMAGE = "<p:pic xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:p=\"http://schemas.openxmlformats.org/presentationml/2006/main\"> "
 			+ "<p:nvPicPr>" + "<p:cNvPr id=\"${id1}\" name=\"${name}\" descr=\"${descr}\"/>" + "<p:cNvPicPr>"
 			+ "<a:picLocks noChangeAspect=\"1\"/>" + "</p:cNvPicPr>" + "<p:nvPr/>" + "</p:nvPicPr>" + "<p:blipFill>"
 			+ "<a:blip r:embed=\"${rEmbedId}\" cstate=\"print\"/>" + "<a:stretch>" + "<a:fillRect/>" + "</a:stretch>"
@@ -100,6 +139,13 @@ public class ReportsPptxUtils {
 			+ "<a:ext cx=\"${extcx}\" cy=\"${extcy}\"/>" + "</a:xfrm>" + "<a:prstGeom prst=\"rect\">" + "<a:avLst/>"
 			+ "</a:prstGeom>" + "</p:spPr>" + "</p:pic>";
 
+	/**
+	 * Save pptx to the path.
+	 * 
+	 * @param presentationMLPackage
+	 * @param path
+	 * @throws Docx4JException
+	 */
 	public static void save( PresentationMLPackage presentationMLPackage, String path ) throws Docx4JException {
 		presentationMLPackage.save( Paths.get( path ).toFile() );
 	}

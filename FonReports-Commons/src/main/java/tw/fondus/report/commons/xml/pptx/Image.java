@@ -4,6 +4,7 @@ import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 
 /**
+ * The POJO of image XML elements.
  * 
  * @author Chao
  *

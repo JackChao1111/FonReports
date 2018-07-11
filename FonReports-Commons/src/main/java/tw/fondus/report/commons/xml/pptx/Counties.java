@@ -5,6 +5,7 @@ import java.util.List;
 import org.simpleframework.xml.ElementList;
 
 /**
+ * The POJO of counties XML elements.
  * 
  * @author Chao
  *

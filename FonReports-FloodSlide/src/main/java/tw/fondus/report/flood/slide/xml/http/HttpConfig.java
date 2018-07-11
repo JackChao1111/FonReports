@@ -3,6 +3,12 @@ package tw.fondus.report.flood.slide.xml.http;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
+/**
+ * POJO HttpConfig of XML configuration.
+ * 
+ * @author Chao
+ *
+ */
 @Root( name = "HttpConfig")
 public class HttpConfig {
 	@Element

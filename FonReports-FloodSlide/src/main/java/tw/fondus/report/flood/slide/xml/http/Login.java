@@ -2,6 +2,12 @@ package tw.fondus.report.flood.slide.xml.http;
 
 import org.simpleframework.xml.Element;
 
+/**
+ * The POJO of login XML elements.
+ * 
+ * @author Chao
+ *
+ */
 public class Login {
 	@Element
 	private String url;
