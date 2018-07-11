@@ -1,7 +1,6 @@
 package tw.fondus.report.flood.slide.command.main;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -90,10 +89,10 @@ public class FonReportFloodPowerPointProcess {
 		try {
 			// Get all config file
 			ConfigProperties configProperties = new ConfigProperties( propertiesPath );
-			
+
 			String templatePath = Strman.append( basePath, StringUtils.PATH, configProperties.getTemplateFolder() );
 			String exportPath = Strman.append( basePath, StringUtils.PATH, configProperties.getExportFolder() );
-		
+
 			HttpConfig httpConfig = XMLUtils.fromXML(
 					Paths.get( Strman.append( basePath, StringUtils.PATH, configProperties.getHttpConfig() ) ).toFile(),
 					HttpConfig.class );
@@ -111,11 +110,11 @@ public class FonReportFloodPowerPointProcess {
 			// Get template pptx file.
 			presentationMLPackage = ReportsPptxUtils.open( Strman.append( basePath, StringUtils.PATH,
 					configProperties.getTemplateFolder(), StringUtils.PATH, configProperties.getPptxTemplate() ) );
-			
+
 			// Get REST API user response.
 			Optional<UserResponse> optResponse = HttpUtils.login( httpConfig.getLogin().getUrl(),
 					httpConfig.getLogin().getAccount(), httpConfig.getLogin().getPassword() );
-			
+
 			// Create text variable mappings.
 			Map<String, String> mappings = new HashMap<String, String>();
 
@@ -144,40 +143,24 @@ public class FonReportFloodPowerPointProcess {
 								// Create Taiwan rainfall image from svg and
 								// accumulate data.
 								SVGRainfallImageCreator rainfallImage = new SVGRainfallImageCreator();
-								rainfallImage.createImageBySvg( countyPiAccumulateSeriesMap, templatePath,
-										"Taiwan", exportPath );
+								rainfallImage.createImageBySvg( countyPiAccumulateSeriesMap, templatePath, "Taiwan",
+										exportPath );
 
 								// Add Taiwan rainfall image into slide.
 								Image taiwanRainfallImage = slideMappingImageMap.get( "Taiwan_Rainfall" );
-								ReportsPptxUtils.addImage(
-										presentationMLPackage, slidePart, Strman.append( exportPath,
-												StringUtils.PATH, taiwanRainfallImage.getValue() ),
+								ReportsPptxUtils.addImage( presentationMLPackage, slidePart,
+										Strman.append( exportPath, StringUtils.PATH, taiwanRainfallImage.getValue() ),
 										taiwanRainfallImage );
 
 								// Create Taiwan rainfall 6hr forecasting table
 								// info.
 								List<String[]> rainfall6hrForecasting = new ArrayList<String[]>();
 								slideMapping.getCounties().getList().forEach( county -> {
-									// For Hsinchu case has county and city.
-									if ( county.getId().equals( "CT004" ) ) {
-										BigDecimal hsinchuCounty = countyPiAccumulateSeriesMap.get( county.getId() )
-												.getAccumulated()
-												.getHour6();
-										BigDecimal hsinchuCity = countyPiAccumulateSeriesMap.get( "CT018" )
-												.getAccumulated()
-												.getHour6();
-										BigDecimal hsinchu = hsinchuCounty.add( hsinchuCity )
-												.divide( new BigDecimal( "2" ) );
-										rainfall6hrForecasting.add( new String[] {
-												Strman.append( county.getcName(), "地區" ), hsinchu.toString() } );
-									} else {
-										rainfall6hrForecasting
-												.add( new String[] { Strman.append( county.getcName(), "地區" ),
-														countyPiAccumulateSeriesMap.get( county.getId() )
-																.getAccumulated()
-																.getHour6()
-																.toString() } );
-									}
+									rainfall6hrForecasting.add( new String[] { Strman.append( county.getcName(), "地區" ),
+											countyPiAccumulateSeriesMap.get( county.getId() )
+													.getAccumulated()
+													.getHour6()
+													.toString() } );
 								} );
 
 								// Add Taiwan rainfall 6hr forecasting table
@@ -227,11 +210,9 @@ public class FonReportFloodPowerPointProcess {
 
 								// Add Taiwan hot spot image into slide.
 								Image taiwanHotSpotImage = slideMappingImageMap.get( "Taiwan" );
-								ReportsPptxUtils
-										.addImage(
-												presentationMLPackage, slidePart, Strman.append( exportPath,
-														StringUtils.PATH, taiwanHotSpotImage.getValue() ),
-												taiwanHotSpotImage );
+								ReportsPptxUtils.addImage( presentationMLPackage, slidePart,
+										Strman.append( exportPath, StringUtils.PATH, taiwanHotSpotImage.getValue() ),
+										taiwanHotSpotImage );
 
 								// Create hot spot of count and each county.
 								List<String[]> hotSpotCount = new ArrayList<String[]>();
@@ -241,8 +222,7 @@ public class FonReportFloodPowerPointProcess {
 									SVGHotSpotImageCreator hotSpotImageCounty = new SVGHotSpotImageCreator();
 									hotSpotImageCounty.createImageBySvg( propertiesMap, hotSpotPiAccumulateSeriesMap,
 											templatePath.toString(),
-											slideMapping.getCounties().getList().get( i ).geteName(),
-											exportPath );
+											slideMapping.getCounties().getList().get( i ).geteName(), exportPath );
 
 									// Add warning hot spot count by each
 									// county.
@@ -306,8 +286,8 @@ public class FonReportFloodPowerPointProcess {
 											// slide.
 											Image countyHotSpotImage = slideMappingImageMap
 													.get( slideMapping.getCounties().getList().get( i ).geteName() );
-											ReportsPptxUtils.addImage( presentationMLPackage,
-													slidePartCounty, Strman.append( exportPath,
+											ReportsPptxUtils.addImage(
+													presentationMLPackage, slidePartCounty, Strman.append( exportPath,
 															StringUtils.PATH, countyHotSpotImage.getValue() ),
 													countyHotSpotImage );
 
