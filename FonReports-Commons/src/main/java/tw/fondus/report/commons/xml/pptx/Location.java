@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import org.simpleframework.xml.Element;
 
 /**
+ * The POJO of location XML elements.
  * 
  * @author Chao
  *

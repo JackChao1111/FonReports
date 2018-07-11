@@ -12,6 +12,12 @@ import org.docx4j.dml.CTTableGrid;
 import org.docx4j.dml.CTTableRow;
 import org.pptx4j.pml.CTGraphicalObjectFrame;
 
+/**
+ * Table for county hot spot of inner water count.
+ * 
+ * @author Chao
+ *
+ */
 public class CountyIWTable  implements Table{
 	private org.docx4j.dml.ObjectFactory dmlFactory;
 	private org.pptx4j.pml.ObjectFactory pmlFactory;
@@ -28,7 +34,6 @@ public class CountyIWTable  implements Table{
 
 	@Override
 	public void createGrid( List<String[]> contents ) {
-		
 		try {
 			CTTableGrid ctTableGrid = dmlFactory.createCTTableGrid();
 			CTTableCol gridCol = dmlFactory.createCTTableCol();

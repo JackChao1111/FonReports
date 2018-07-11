@@ -11,6 +11,12 @@ import tw.fondus.report.commons.xml.pptx.SlideMapping;
 import tw.fondus.report.flood.json.hotspot.HotSpot;
 import tw.fondus.report.flood.json.hotspot.Properties;
 
+/**
+ * The util of data transform.
+ * 
+ * @author Chao
+ *
+ */
 public class DataTransformUtils {
 
 	public static Map<String, PiAccumulatedSeries> piAccumulatedSeriesCollectionToMap(

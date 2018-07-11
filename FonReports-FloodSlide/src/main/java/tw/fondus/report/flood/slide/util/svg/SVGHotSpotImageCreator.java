@@ -17,6 +17,12 @@ import tw.fondus.commons.util.svg.SVGUtils;
 import tw.fondus.commons.util.xml.Dom4JUtils;
 import tw.fondus.report.flood.json.hotspot.Properties;
 
+/**
+ * Create hot spot image from SVG file.
+ * 
+ * @author Chao
+ *
+ */
 public class SVGHotSpotImageCreator {
 	private static final int MISSING_VALUE = -999;
 	private static final String INNER_WATER_CLASS="hotSpotInnerWater";
@@ -26,6 +32,15 @@ public class SVGHotSpotImageCreator {
 	private List<Properties> warningPropertiesIW;
 	private List<Properties> warningPropertiesEW;
 
+	/**
+	 * Create image by SVG file and pi accumulate series data of hot spot.
+	 * 
+	 * @param propertiesMap
+	 * @param piAccumulateSeriesMap
+	 * @param svgPath
+	 * @param svgFileNameWithOutExt
+	 * @param exportPtah
+	 */
 	public void createImageBySvg( Map<String, Properties> propertiesMap,
 			Map<String, PiAccumulatedSeries> piAccumulateSeriesMap, String svgPath, String svgFileNameWithOutExt,
 			String exportPtah ) {
@@ -53,26 +68,26 @@ public class SVGHotSpotImageCreator {
 					circle.remove( classAttribute );
 
 					if ( circleId.endsWith( "I" ) && properties.getGrading().equals( "1" ) ) {
-						if ( ((thresHold1 == MISSING_VALUE)) && hour24 > thresHold1 ) {
+						if ( (!(thresHold1 == MISSING_VALUE)) && hour24 > thresHold1 ) {
 							circle.addAttribute( ATTRIBUTE_CLASS_NAME, INNER_WATER_CLASS );
 							warningPropertiesIW.add( properties );
-						} else if ( ((thresHold2 == MISSING_VALUE)) && hour24 > thresHold2 ) {
+						} else if ( (!(thresHold2 == MISSING_VALUE)) && hour24 > thresHold2 ) {
 							circle.addAttribute( ATTRIBUTE_CLASS_NAME, INNER_WATER_CLASS );
 							warningPropertiesIW.add( properties );
-						} else if ( ((thresHold3 == MISSING_VALUE)) && hour24 > thresHold3 ) {
+						} else if ( (!(thresHold3 == MISSING_VALUE)) && hour24 > thresHold3 ) {
 							circle.addAttribute( ATTRIBUTE_CLASS_NAME, INNER_WATER_CLASS );
 							warningPropertiesIW.add( properties );
 						} else {
 							circle.addAttribute( ATTRIBUTE_CLASS_NAME, DEFAULT_CLASS );
 						}
 					} else if ( circleId.endsWith( "E" ) ) {
-						if ( ((thresHold1 == MISSING_VALUE)) && hour24 > thresHold1 ) {
+						if ( (!(thresHold1 == MISSING_VALUE)) && hour24 > thresHold1 ) {
 							circle.addAttribute( ATTRIBUTE_CLASS_NAME, EXTERNAL_WATER_CLASS );
 							warningPropertiesEW.add( properties );
-						} else if ( ((thresHold2 == MISSING_VALUE)) && hour24 > thresHold2 ) {
+						} else if ( (!(thresHold2 == MISSING_VALUE)) && hour24 > thresHold2 ) {
 							circle.addAttribute( ATTRIBUTE_CLASS_NAME, EXTERNAL_WATER_CLASS );
 							warningPropertiesEW.add( properties );
-						} else if ( ((thresHold3 == MISSING_VALUE)) && hour24 > thresHold3 ) {
+						} else if ( (!(thresHold3 == MISSING_VALUE)) && hour24 > thresHold3 ) {
 							circle.addAttribute( ATTRIBUTE_CLASS_NAME, EXTERNAL_WATER_CLASS );
 							warningPropertiesEW.add( properties );
 						} else {

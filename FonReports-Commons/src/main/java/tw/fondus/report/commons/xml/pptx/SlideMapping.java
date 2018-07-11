@@ -4,6 +4,7 @@ import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
 /**
+ * POJO Slide Mapping of XML configuration.
  * 
  * @author Chao
  *

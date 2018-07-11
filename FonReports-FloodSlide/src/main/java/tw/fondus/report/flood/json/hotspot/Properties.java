@@ -2,6 +2,12 @@ package tw.fondus.report.flood.json.hotspot;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * The POJO of properties JSON object.
+ * 
+ * @author Chao
+ *
+ */
 public class Properties {
 	@SerializedName( "ID" )
 	protected String id;

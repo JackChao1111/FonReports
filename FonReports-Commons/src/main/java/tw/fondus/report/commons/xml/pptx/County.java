@@ -3,6 +3,7 @@ package tw.fondus.report.commons.xml.pptx;
 import org.simpleframework.xml.Attribute;
 
 /**
+ * The POJO of county XML elements.
  * 
  * @author Chao
  *

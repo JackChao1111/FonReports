@@ -2,6 +2,12 @@ package tw.fondus.report.flood.json.hotspot;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * The POJO of features JSON object.
+ * 
+ * @author Chao
+ *
+ */
 public class Features {
 	@SerializedName( "type" )
 	protected String type;

@@ -4,6 +4,12 @@ import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * The POJO of geometry JSON object.
+ * 
+ * @author Chao
+ *
+ */
 public class Geometry {
 	@SerializedName( "type" )
 	protected String type;

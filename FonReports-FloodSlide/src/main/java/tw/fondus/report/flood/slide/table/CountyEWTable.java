@@ -14,6 +14,12 @@ import org.pptx4j.pml.CTGraphicalObjectFrame;
 
 import strman.Strman;
 
+/**
+ * Table for county hot spot of external water count.
+ * 
+ * @author Chao
+ *
+ */
 public class CountyEWTable implements Table{
 	private org.docx4j.dml.ObjectFactory dmlFactory;
 	private org.pptx4j.pml.ObjectFactory pmlFactory;
@@ -30,7 +36,6 @@ public class CountyEWTable implements Table{
 
 	@Override
 	public void createGrid( List<String[]> contents ) {
-		
 		try {
 			CTTableGrid ctTableGrid = dmlFactory.createCTTableGrid();
 			CTTableCol gridCol = dmlFactory.createCTTableCol();
