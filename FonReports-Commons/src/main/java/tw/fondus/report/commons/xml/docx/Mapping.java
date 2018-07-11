@@ -1,4 +1,4 @@
-package tw.fondus.report.commons.xml;
+package tw.fondus.report.commons.xml.docx;
 
 import org.simpleframework.xml.Attribute;
 

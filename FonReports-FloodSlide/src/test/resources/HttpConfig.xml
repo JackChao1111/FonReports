@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HttpConfig>
+	<login>
+		<url>Account/Login</url>
+		<account>Your account</account>
+		<password>Password</password>
+	</login>
+	<accumulatedSeries>
+		<accumulatedSerie id="County">
+			<url>Rainfall/Catchments/Countys/Search/Accumulating?</url>
+			<start>1</start>
+			<end>6</end>
+			<backward>false</backward>
+		</accumulatedSerie>
+		<accumulatedSerie id="HotSpot">
+			<url>Rainfall/Catchments/HotSpots/Floods/Search/Accumulating?</url>
+			<start>-17</start>
+			<end>6</end>
+			<backward>false</backward>
+		</accumulatedSerie>
+	</accumulatedSeries>
+</HttpConfig>
