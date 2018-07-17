@@ -1,6 +1,7 @@
 package tw.fondus.report.flood.slide.command.main;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -28,7 +29,10 @@ import strman.Strman;
 import tw.fondus.commons.fews.pi.config.xml.util.XMLUtils;
 import tw.fondus.commons.fews.pi.json.accumulate.PiAccumulatedSeries;
 import tw.fondus.commons.fews.pi.json.accumulate.PiAccumulatedSeriesCollection;
+import tw.fondus.commons.fews.pi.json.timeseries.PiTimeSeriesArray;
+import tw.fondus.commons.fews.pi.json.timeseries.PiTimeSeriesCollection;
 import tw.fondus.commons.fews.pi.json.user.UserResponse;
+import tw.fondus.commons.fews.pi.util.timeseries.PiSeriesUtils;
 import tw.fondus.commons.json.util.JSONUtils;
 import tw.fondus.commons.util.string.StringUtils;
 import tw.fondus.commons.util.time.TimeUtils;
@@ -45,6 +49,7 @@ import tw.fondus.report.flood.slide.table.Forecasting6hrRainfallTable;
 import tw.fondus.report.flood.slide.table.HotSpotCountTable;
 import tw.fondus.report.flood.slide.table.Table;
 import tw.fondus.report.flood.slide.util.HttpUtils;
+import tw.fondus.report.flood.slide.util.chart.ChartImageCreator;
 import tw.fondus.report.flood.slide.util.data.DataTransformUtils;
 import tw.fondus.report.flood.slide.util.svg.SVGHotSpotImageCreator;
 import tw.fondus.report.flood.slide.util.svg.SVGRainfallImageCreator;
@@ -52,6 +57,7 @@ import tw.fondus.report.flood.slide.xml.http.HttpConfig;
 
 public class FonReportFloodPowerPointProcess {
 	private Logger log = LoggerFactory.getLogger( this.getClass() );
+	Map<String, PiTimeSeriesArray> countyPiTimeSeriesArrayMap;
 	private PresentationMLPackage presentationMLPackage;
 	DateTime reportT0;
 
@@ -123,12 +129,11 @@ public class FonReportFloodPowerPointProcess {
 				httpConfig.getAccumulatedSeries().getList().forEach( accumulatedSeries -> {
 					if ( accumulatedSeries.getId().equals( "County" ) ) {
 						// Get county accumulate from REST API.
-						Optional<PiAccumulatedSeriesCollection> optCountyPiAccumulatedSeriesCollection = HttpUtils
-								.getAccumulated( accumulatedSeries.getUrl(), accumulatedSeries.getStart(),
-										accumulatedSeries.getEnd(), accumulatedSeries.getBackward(), response );
-						optCountyPiAccumulatedSeriesCollection.ifPresent( countyPiAccumulatedSeriesCollection -> {
+						Optional<PiTimeSeriesCollection> optCountyTimeSeriesCollection = HttpUtils
+								.getTimeSeriesArray( accumulatedSeries.getUrl(), response );
+						optCountyTimeSeriesCollection.ifPresent( countyTimeSeriesCollection -> {
 							// Get REST API T0 time for report.
-							reportT0 = countyPiAccumulatedSeriesCollection.getTimeZero();
+							reportT0 = countyTimeSeriesCollection.getTimeZero();
 							mappings.put( "Time", Strman.append(
 									TimeUtils.toString( reportT0, TimeUtils.YMDHMS, TimeUtils.UTC8 ), "+08:00" ) );
 							try {
@@ -137,13 +142,13 @@ public class FonReportFloodPowerPointProcess {
 								slidePart.variableReplace( mappings );
 
 								// Transform list to map format.
-								Map<String, PiAccumulatedSeries> countyPiAccumulateSeriesMap = DataTransformUtils
-										.piAccumulatedSeriesCollectionToMap( countyPiAccumulatedSeriesCollection );
+								countyPiTimeSeriesArrayMap = DataTransformUtils
+										.piTimeSeriesCollectionToMap( countyTimeSeriesCollection );
 
 								// Create Taiwan rainfall image from svg and
 								// accumulate data.
 								SVGRainfallImageCreator rainfallImage = new SVGRainfallImageCreator();
-								rainfallImage.createImageBySvg( countyPiAccumulateSeriesMap, templatePath, "Taiwan",
+								rainfallImage.createImageBySvg( countyPiTimeSeriesArrayMap, templatePath, "Taiwan",
 										exportPath );
 
 								// Add Taiwan rainfall image into slide.
@@ -156,11 +161,10 @@ public class FonReportFloodPowerPointProcess {
 								// info.
 								List<String[]> rainfall6hrForecasting = new ArrayList<String[]>();
 								slideMapping.getCounties().getList().forEach( county -> {
+									BigDecimal hour6 = PiSeriesUtils.calculateAccumulate(
+											countyPiTimeSeriesArrayMap.get( county.getId() ), 74, 79 );
 									rainfall6hrForecasting.add( new String[] { Strman.append( county.getcName(), "地區" ),
-											countyPiAccumulateSeriesMap.get( county.getId() )
-													.getAccumulated()
-													.getHour6()
-													.toString() } );
+											hour6.toString() } );
 								} );
 
 								// Add Taiwan rainfall 6hr forecasting table
@@ -216,13 +220,24 @@ public class FonReportFloodPowerPointProcess {
 
 								// Create hot spot of count and each county.
 								List<String[]> hotSpotCount = new ArrayList<String[]>();
+								SVGHotSpotImageCreator hotSpotImageCounty = new SVGHotSpotImageCreator();
+								ChartImageCreator chartImageCreator = new ChartImageCreator();
 								IntStream.range( 0, slideMapping.getCounties().getList().size() ).forEach( i -> {
 									// Create county hot spot image from svg and
 									// accumulate data.
-									SVGHotSpotImageCreator hotSpotImageCounty = new SVGHotSpotImageCreator();
 									hotSpotImageCounty.createImageBySvg( propertiesMap, hotSpotPiAccumulateSeriesMap,
 											templatePath.toString(),
 											slideMapping.getCounties().getList().get( i ).geteName(), exportPath );
+
+									// Create county rainfall chart.
+									chartImageCreator.createBarChartImage(
+											countyPiTimeSeriesArrayMap
+													.get( slideMapping.getCounties().getList().get( i ).getId() ),
+											slideMapping.getCounties().getList().get( i ).geteName(), exportPath );
+									
+									mappings.put( "hour6", chartImageCreator.getHour6_forecasting().toString() );
+									mappings.put( "hour18", chartImageCreator.getHour18_historical().toString() );
+									mappings.put( "hour24", chartImageCreator.getHour24_combinee().toString() );
 
 									// Add warning hot spot count by each
 									// county.
@@ -241,6 +256,8 @@ public class FonReportFloodPowerPointProcess {
 											SlidePart slidePartCounty = presentationMLPackage.getMainPresentationPart()
 													.getSlide( i + 3 );
 
+											slidePartCounty.variableReplace( mappings );
+											
 											// Define table info of external
 											// water and inner water size.
 											int contentMaxSizeEW = 5;
@@ -281,7 +298,6 @@ public class FonReportFloodPowerPointProcess {
 															properties.getDisasterPr() } );
 												}
 											}
-
 											// Add county hot spot image into
 											// slide.
 											Image countyHotSpotImage = slideMappingImageMap
@@ -291,16 +307,22 @@ public class FonReportFloodPowerPointProcess {
 															StringUtils.PATH, countyHotSpotImage.getValue() ),
 													countyHotSpotImage );
 
+											ReportsPptxUtils.addImage( presentationMLPackage, slidePartCounty,
+													Strman.append( exportPath, StringUtils.PATH, "chart",
+															StringUtils.PATH, countyHotSpotImage.getValue() ),
+													new BigDecimal( "342" ), new BigDecimal( "18.648" ),
+													new BigDecimal( "374.903" ), new BigDecimal( "74" ) );
+											
 											// Add external water table into
 											// slide.
-											Table countyEWTable = new CountyEWTable( 5546381, 2398034, 3429001,
-													985696 );
+											Table countyEWTable = new CountyEWTable( 5546381, 2353061, 3299410,
+													1573475 );
 											countyEWTable.createGrid( countyEWContents );
 											ReportsPptxUtils.addTable( slidePartCounty, countyEWTable.getTable() );
 
 											// Add inner water table into slide.
-											Table countyIWTable = new CountyIWTable( 5546382, 2559095, 3429000,
-													3660730 );
+											Table countyIWTable = new CountyIWTable( 5546382, 2454778, 3299409,
+													4250822 );
 											countyIWTable.createGrid( countyIWContents );
 											ReportsPptxUtils.addTable( slidePartCounty, countyIWTable.getTable() );
 										} catch (Docx4JException e) {
