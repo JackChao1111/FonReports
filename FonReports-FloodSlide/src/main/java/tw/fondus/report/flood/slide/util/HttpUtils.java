@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import strman.Strman;
 import tw.fondus.commons.fews.pi.json.accumulate.PiAccumulatedSeriesCollection;
+import tw.fondus.commons.fews.pi.json.timeseries.PiTimeSeriesCollection;
 import tw.fondus.commons.fews.pi.json.user.UserResponse;
 import tw.fondus.commons.web.pi.service.IHttpPiService;
 import tw.fondus.commons.web.pi.service.impl.CommonsHttpService;
@@ -31,11 +32,24 @@ public class HttpUtils {
 	 * @return
 	 */
 	public static Optional<UserResponse> login( String url, String account, String password ) {
-		System.out.println( Strman.append( COMMON_URL, url ) + "," +  account + "," + password);
 		Optional<UserResponse> optResponse = httpService.loginREST( Strman.append( COMMON_URL, url ), account,
 				password );
-		
+
 		return optResponse;
+	}
+
+	/**
+	 * Get pi time series.
+	 * 
+	 * @param url
+	 * @param response
+	 * @return
+	 */
+	public static Optional<PiTimeSeriesCollection> getTimeSeriesArray( String url, UserResponse response ) {
+		Optional<PiTimeSeriesCollection> optPiTimeSeries = httpService.getTimeSeries( Strman.append( COMMON_URL, url ),
+				response );
+
+		return optPiTimeSeries;
 	}
 
 	/**
