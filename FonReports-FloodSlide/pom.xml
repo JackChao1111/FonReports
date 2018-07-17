@@ -58,6 +58,11 @@
 			<groupId>org.apache.xmlgraphics</groupId>
 			<artifactId>fop</artifactId>
 		</dependency>
+		<!-- JFreeChart -->
+		<dependency>
+			<groupId>jfree</groupId>
+			<artifactId>jfreechart</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
