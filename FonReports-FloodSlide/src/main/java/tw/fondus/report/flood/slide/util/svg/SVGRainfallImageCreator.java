@@ -11,7 +11,8 @@ import org.dom4j.Element;
 
 import nl.wldelft.util.FileUtils;
 import strman.Strman;
-import tw.fondus.commons.fews.pi.json.accumulate.PiAccumulatedSeries;
+import tw.fondus.commons.fews.pi.json.timeseries.PiTimeSeriesArray;
+import tw.fondus.commons.fews.pi.util.timeseries.PiSeriesUtils;
 import tw.fondus.commons.util.string.StringUtils;
 import tw.fondus.commons.util.svg.SVGUtils;
 import tw.fondus.commons.util.xml.Dom4JUtils;
@@ -34,12 +35,12 @@ public class SVGRainfallImageCreator {
 	 * Create image by SVG file and pi accumulate series data of county rainfall.
 	 * 
 	 * @param propertiesMap
-	 * @param piAccumulateSeriesMap
+	 * @param piTimeSeriesArrayMap
 	 * @param svgPath
 	 * @param svgFileNameWithOutExt
 	 * @param exportPtah
 	 */
-	public void createImageBySvg( Map<String, PiAccumulatedSeries> piAccumulateSeriesMap, String svgPath,
+	public void createImageBySvg( Map<String, PiTimeSeriesArray> piTimeSeriesArrayMap, String svgPath,
 			String svgFileNameWithOutExt, String exportPtah ) {
 		try {
 			File svgFile = new File( Strman.append( svgPath, StringUtils.PATH, svgFileNameWithOutExt, ".svg" ) );
@@ -52,8 +53,8 @@ public class SVGRainfallImageCreator {
 				paths.forEach( path -> {
 					String pathId = path.attributeValue( "id" );
 					Attribute classAttribute = path.attribute( "class" );
-					PiAccumulatedSeries accumulatedSeries = piAccumulateSeriesMap.get( pathId );
-					BigDecimal hour6 = accumulatedSeries.getAccumulated().getHour6();
+					PiTimeSeriesArray timedSeriesArray = piTimeSeriesArrayMap.get( pathId );
+					BigDecimal hour6 = PiSeriesUtils.calculateAccumulate( timedSeriesArray, 74, 79 );
 					path.remove( classAttribute );
 					if ( hour6.compareTo( DEFAULT_LEVEL ) == -1 ) {
 						path.addAttribute( "class", "defaultCounty" );

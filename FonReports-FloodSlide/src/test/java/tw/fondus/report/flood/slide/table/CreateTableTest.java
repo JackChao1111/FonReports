@@ -67,8 +67,8 @@ public class CreateTableTest {
 
 			// Forecasting6hrRainfallTable: 2302791, 5100911, 4944980, 1048887
 			// HotSpotCountTable: 2456798, 7080656, 4971557, 885490
-			// CountyEWTable: 5546381, 2398034, 3429001, 985696
-			// CountyIWTable: 5546382, 2559095, 3429000, 3660730
+			// CountyEWTable: 5546381, 2353061, 3299410, 1573475
+			// CountyIWTable: 5546382, 2454778, 3299409, 4250822
 
 			SlidePart slidePart1 = presentationMLPackage.getMainPresentationPart().getSlide( 1 );
 			Forecasting6hrRainfallTable fTable = new Forecasting6hrRainfallTable( 2302791, 5100911, 4944980, 1048887 );
@@ -81,11 +81,11 @@ public class CreateTableTest {
 			ReportsPptxUtils.addTable( slidePart2, hTable.getTable() );
 
 			SlidePart slidePart3 = presentationMLPackage.getMainPresentationPart().getSlide( 3 );
-			CountyEWTable cEWTable = new CountyEWTable( 5546381, 2398034, 3429001, 985696 );
+			CountyEWTable cEWTable = new CountyEWTable( 5546381, 2353061, 3299410, 1573475 );
 			cEWTable.createGrid( countyEWContents );
 			ReportsPptxUtils.addTable( slidePart3, cEWTable.getTable() );
 
-			CountyIWTable cIWTable = new CountyIWTable( 5546382, 2559095, 3429000, 3660730 );
+			CountyIWTable cIWTable = new CountyIWTable( 5546382, 2454778, 3299409, 4250822 );
 			cIWTable.createGrid( countyIWContents );
 			ReportsPptxUtils.addTable( slidePart3, cIWTable.getTable() );
 

@@ -6,6 +6,8 @@ import java.util.stream.Stream;
 
 import tw.fondus.commons.fews.pi.json.accumulate.PiAccumulatedSeries;
 import tw.fondus.commons.fews.pi.json.accumulate.PiAccumulatedSeriesCollection;
+import tw.fondus.commons.fews.pi.json.timeseries.PiTimeSeriesArray;
+import tw.fondus.commons.fews.pi.json.timeseries.PiTimeSeriesCollection;
 import tw.fondus.report.commons.xml.pptx.Image;
 import tw.fondus.report.commons.xml.pptx.SlideMapping;
 import tw.fondus.report.flood.json.hotspot.HotSpot;
@@ -18,6 +20,16 @@ import tw.fondus.report.flood.json.hotspot.Properties;
  *
  */
 public class DataTransformUtils {
+	
+	public static Map<String, PiTimeSeriesArray> piTimeSeriesCollectionToMap(
+			PiTimeSeriesCollection piTimeSeriesCollection ) {
+		Map<String, PiTimeSeriesArray> piTimeSeriesMap = new HashMap<String, PiTimeSeriesArray>();
+		Stream.of( piTimeSeriesCollection.getTimeSeries() ).forEach( timeSeries -> {
+			piTimeSeriesMap.put( timeSeries.getHeader().getLocationId(), timeSeries );
+		} );
+
+		return piTimeSeriesMap;
+	}
 
 	public static Map<String, PiAccumulatedSeries> piAccumulatedSeriesCollectionToMap(
 			PiAccumulatedSeriesCollection piAccumulatedSeriesCollection ) {

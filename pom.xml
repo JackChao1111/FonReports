@@ -48,6 +48,7 @@
 		<json.version>20170516</json.version>
 		<commons.xmlgraphics.transcoder.version>1.9</commons.xmlgraphics.transcoder.version>
 		<commons.xmlgraphics.fop.version>2.2</commons.xmlgraphics.fop.version>
+		<jfree.chart.version>1.0.13</jfree.chart.version>
 	</properties>
 
 	<dependencyManagement>
@@ -99,19 +100,22 @@
 				<groupId>org.apache.xmlgraphics</groupId>
 				<artifactId>batik-transcoder</artifactId>
 				<version>${commons.xmlgraphics.transcoder.version}</version>
-				<scope>provided</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.xmlgraphics</groupId>
 				<artifactId>batik-codec</artifactId>
 				<version>${commons.xmlgraphics.transcoder.version}</version>
-				<scope>provided</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.xmlgraphics</groupId>
 				<artifactId>fop</artifactId>
 				<version>${commons.xmlgraphics.fop.version}</version>
-				<scope>provided</scope>
+			</dependency>
+			<!-- JFreeChart -->
+			<dependency>
+				<groupId>jfree</groupId>
+				<artifactId>jfreechart</artifactId>
+				<version>${jfree.chart.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -174,6 +178,22 @@
 					<configuration>
 						<skipTests>true</skipTests>
 					</configuration>
+				</plugin>
+				<!-- Copy dependencies to target folder -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<executions>
+						<execution>
+							<phase>install</phase>
+							<goals>
+								<goal>copy-dependencies</goal>
+							</goals>
+							<configuration>
+								<outputDirectory>${project.build.directory}/libs</outputDirectory>
+							</configuration>
+						</execution>
+					</executions>
 				</plugin>
 			</plugins>
 		</pluginManagement>

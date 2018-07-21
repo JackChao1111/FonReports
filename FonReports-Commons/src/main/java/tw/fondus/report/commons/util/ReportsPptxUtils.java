@@ -1,7 +1,7 @@
 package tw.fondus.report.commons.util;
 
-import java.io.File;
 import java.math.BigDecimal;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
@@ -16,6 +16,8 @@ import org.docx4j.openpackaging.parts.WordprocessingML.BinaryPartAbstractImage;
 import org.pptx4j.jaxb.Context;
 import org.pptx4j.pml.CTGraphicalObjectFrame;
 import org.pptx4j.pml.Pic;
+
+import com.google.common.base.Preconditions;
 
 import tw.fondus.report.commons.xml.pptx.Image;
 
@@ -78,6 +80,25 @@ public class ReportsPptxUtils {
 	}
 
 	/**
+	 * Add a image object into slide part.
+	 * 
+	 * @param presentationMLPackage
+	 * @param slidePart
+	 * @param imagePath
+	 * @param offX
+	 * @param offY
+	 * @param extcX
+	 * @param extcY
+	 * @throws Docx4JException
+	 * @throws Exception
+	 */
+	public static void addImage( PresentationMLPackage presentationMLPackage, SlidePart slidePart, String imagePath,
+			BigDecimal offX, BigDecimal offY, BigDecimal extcX, BigDecimal extcY ) throws Docx4JException, Exception {
+		slidePart.getContents().getCSld().getSpTree().getSpOrGrpSpOrGraphicFrame().add(
+				createImageObject( presentationMLPackage, slidePart, imagePath, offX, offY, extcX, extcY ) );
+	}
+
+	/**
 	 * Create a image object for the slide part of pptx.
 	 * 
 	 * @param presentationMLPackage
@@ -108,9 +129,11 @@ public class ReportsPptxUtils {
 	 */
 	public static Object createImageObject( PresentationMLPackage presentationMLPackage, SlidePart slidePart,
 			String imagePath, BigDecimal offX, BigDecimal offY, BigDecimal extcX, BigDecimal extcY ) throws Exception {
-		File imageFile = new File( imagePath );
+		Path image = Paths.get( imagePath );
+		Preconditions.checkState( Files.exists( image ), "File doesn't exist!" );
+		
 		BinaryPartAbstractImage imagePart = BinaryPartAbstractImage.createImagePart( presentationMLPackage, slidePart,
-				imageFile );
+				image.toFile() );
 
 		BigDecimal mumultiply = new BigDecimal( "12700" );
 		DecimalFormat df = new DecimalFormat( "0" );
@@ -118,7 +141,7 @@ public class ReportsPptxUtils {
 		HashMap<String, String> mappings = new HashMap<String, String>();
 		mappings.put( "id1", "4" );
 		mappings.put( "name", "Image" );
-		mappings.put( "descr", imageFile.getName() );
+		mappings.put( "descr", image.toFile().getName() );
 		mappings.put( "rEmbedId", imagePart.getSourceRelationships().get( 0 ).getId() );
 		mappings.put( "offx", df.format( mumultiply.multiply( offX ).doubleValue() ) );
 		mappings.put( "offy", df.format( mumultiply.multiply( offY ).doubleValue() ) );
