@@ -22,14 +22,14 @@ import tw.fondus.commons.util.string.StringUtils;
 
 public class ChartImageCreator {
 	private static final BigDecimal MISSING_VALUE = new BigDecimal( "-999" );
-	private BigDecimal hour6_forecasting;
-	private BigDecimal hour18_historical;
-	private BigDecimal hour24_combinee;
+	private BigDecimal hour6_Forecasting;
+	private BigDecimal hour18_Historical;
+	private BigDecimal hour24_Combine;
 
 	public void createBarChartImage( PiTimeSeriesArray piTimeSeriesArray, String countyName, String exportPath ) {
-		setHour6_forecasting( PiSeriesUtils.calculateAccumulate( piTimeSeriesArray, 74, 79 ) );
-		setHour18_historical( PiSeriesUtils.calculateAccumulate( piTimeSeriesArray, 56, 73 ) );
-		setHour24_combinee( PiSeriesUtils.calculateAccumulate( piTimeSeriesArray, 56, 79 ) );
+		setHour6_Forecasting( PiSeriesUtils.calculateAccumulate( piTimeSeriesArray, 74, 79 ) );
+		setHour18_Historical( PiSeriesUtils.calculateAccumulate( piTimeSeriesArray, 56, 73 ) );
+		setHour24_Combine( PiSeriesUtils.calculateAccumulate( piTimeSeriesArray, 56, 79 ) );
 
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		IntStream.rangeClosed( 56, 79 ).forEach( i -> {
@@ -62,28 +62,28 @@ public class ChartImageCreator {
 		}
 	}
 
-	public BigDecimal getHour6_forecasting() {
-		return hour6_forecasting;
+	public BigDecimal getHour6_Forecasting() {
+		return hour6_Forecasting;
 	}
 
-	public void setHour6_forecasting( BigDecimal hour6_forecasting ) {
-		this.hour6_forecasting = hour6_forecasting;
+	public void setHour6_Forecasting( BigDecimal hour6_Forecasting ) {
+		this.hour6_Forecasting = hour6_Forecasting;
 	}
 
-	public BigDecimal getHour18_historical() {
-		return hour18_historical;
+	public BigDecimal getHour18_Historical() {
+		return hour18_Historical;
 	}
 
-	public void setHour18_historical( BigDecimal hour18_historical ) {
-		this.hour18_historical = hour18_historical;
+	public void setHour18_Historical( BigDecimal hour18_Historical ) {
+		this.hour18_Historical = hour18_Historical;
 	}
 
-	public BigDecimal getHour24_combinee() {
-		return hour24_combinee;
+	public BigDecimal getHour24_Combine() {
+		return hour24_Combine;
 	}
 
-	public void setHour24_combinee( BigDecimal hour24_combinee ) {
-		this.hour24_combinee = hour24_combinee;
+	public void setHour24_Combine( BigDecimal hour24_Combine ) {
+		this.hour24_Combine = hour24_Combine;
 	}
 
 }
