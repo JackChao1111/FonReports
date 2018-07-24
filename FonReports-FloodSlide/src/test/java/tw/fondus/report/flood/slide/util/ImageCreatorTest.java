@@ -6,14 +6,15 @@ import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Optional;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.google.common.base.Preconditions;
 
 import tw.fondus.commons.fews.pi.config.xml.util.XMLUtils;
-import tw.fondus.commons.fews.pi.json.accumulate.PiAccumulatedSeries;
-import tw.fondus.commons.fews.pi.json.accumulate.PiAccumulatedSeriesCollection;
+import tw.fondus.commons.fews.pi.json.timeseries.PiTimeSeriesArray;
+import tw.fondus.commons.fews.pi.json.timeseries.PiTimeSeriesCollection;
 import tw.fondus.commons.fews.pi.json.user.UserResponse;
 import tw.fondus.report.flood.slide.util.data.DataTransformUtils;
 import tw.fondus.report.flood.slide.util.svg.SVGRainfallImageCreator;
@@ -26,8 +27,9 @@ import tw.fondus.report.flood.slide.xml.http.HttpConfig;
  *
  */
 public class ImageCreatorTest {
-	private Optional<PiAccumulatedSeriesCollection> optPiAccumulatedSeriesCollection;
+	private Optional<PiTimeSeriesCollection> optCountyTimeSeriesCollection;
 	private Path path;
+
 	@Before
 	public void setUp() {
 		try {
@@ -41,11 +43,9 @@ public class ImageCreatorTest {
 			optResponse.ifPresent( response -> {
 				httpConfig.getAccumulatedSeries().getList().forEach( series -> {
 					if ( series.getId().equals( "County" ) ) {
-						this.optPiAccumulatedSeriesCollection = HttpUtils.getAccumulated( series.getUrl(),
-								series.getStart(), series.getEnd(), series.getBackward(), response );
+						this.optCountyTimeSeriesCollection = HttpUtils.getTimeSeriesArray( series.getUrl(), response );
 					}
 				} );
-
 			} );
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -54,13 +54,14 @@ public class ImageCreatorTest {
 
 	@Test
 	public void run() {
-		this.optPiAccumulatedSeriesCollection.ifPresent( piAccumulatedSeriesCollection -> {
-			Map<String, PiAccumulatedSeries> piAccumulateSeriesMap = DataTransformUtils
-					.piAccumulatedSeriesCollectionToMap( piAccumulatedSeriesCollection );
-
+		this.optCountyTimeSeriesCollection.ifPresent( piTimeSeriesCollection -> {
+			Map<String, PiTimeSeriesArray> piTimeSeriesArrayMap = DataTransformUtils
+					.piTimeSeriesCollectionToMap( piTimeSeriesCollection );
 			SVGRainfallImageCreator rainfallImage = new SVGRainfallImageCreator();
-			rainfallImage.createImageBySvg( piAccumulateSeriesMap, "src/test/resources/template/", "Taiwan",
+			rainfallImage.createImageBySvg( piTimeSeriesArrayMap, "src/test/resources/template/", "Taiwan",
 					"src/test/resources/export/" );
 		} );
+
+		Assert.assertTrue( Files.exists( Paths.get( "src/test/resources/export/Taiwan.png" ) ) );
 	}
 }
