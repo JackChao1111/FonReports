@@ -52,8 +52,8 @@ public class SVGHotSpotImageCreator {
 				Element rootElement = svgDocument.getRootElement();
 				List<Element> circles = rootElement.elements( "circle" );
 
-				warningPropertiesIW = new ArrayList<Properties>();
-				warningPropertiesEW = new ArrayList<Properties>();		
+				warningPropertiesIW = new ArrayList<>();
+				warningPropertiesEW = new ArrayList<>();		
 				circles.forEach( circle -> {
 					String circleId = circle.attributeValue( "id" );
 					Properties properties = propertiesMap.get( circleId );
