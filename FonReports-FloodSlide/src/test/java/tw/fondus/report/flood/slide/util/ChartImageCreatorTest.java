@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Optional;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -53,6 +54,8 @@ public class ChartImageCreatorTest {
 					.piTimeSeriesCollectionToMap( piTimeSeriesCollection );
 			ChartImageCreator chartImage = new ChartImageCreator();
 			chartImage.createBarChartImage( piTimeSeriesArrayMap.get( "CT063" ), "Taipei", "src/test/resources/export" );
+			
+			Assert.assertTrue( Files.exists( Paths.get( "src/test/resources/export/chart/Taipei.png" ) ) );
 		} );
 	}
 }

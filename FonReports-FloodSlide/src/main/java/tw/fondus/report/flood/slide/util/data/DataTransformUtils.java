@@ -23,8 +23,8 @@ public class DataTransformUtils {
 	
 	public static Map<String, PiTimeSeriesArray> piTimeSeriesCollectionToMap(
 			PiTimeSeriesCollection piTimeSeriesCollection ) {
-		Map<String, PiTimeSeriesArray> piTimeSeriesMap = new HashMap<String, PiTimeSeriesArray>();
-		Stream.of( piTimeSeriesCollection.getTimeSeries() ).forEach( timeSeries -> {
+		Map<String, PiTimeSeriesArray> piTimeSeriesMap = new HashMap<>();
+		Stream.of( piTimeSeriesCollection.getCollection() ).forEach( timeSeries -> {
 			piTimeSeriesMap.put( timeSeries.getHeader().getLocationId(), timeSeries );
 		} );
 
@@ -33,8 +33,8 @@ public class DataTransformUtils {
 
 	public static Map<String, PiAccumulatedSeries> piAccumulatedSeriesCollectionToMap(
 			PiAccumulatedSeriesCollection piAccumulatedSeriesCollection ) {
-		Map<String, PiAccumulatedSeries> piAccumulateSeriesMap = new HashMap<String, PiAccumulatedSeries>();
-		Stream.of( piAccumulatedSeriesCollection.getAccumulatedSeries() ).forEach( accumulatedSeries -> {
+		Map<String, PiAccumulatedSeries> piAccumulateSeriesMap = new HashMap<>();
+		Stream.of( piAccumulatedSeriesCollection.getCollection() ).forEach( accumulatedSeries -> {
 			piAccumulateSeriesMap.put( accumulatedSeries.getHeader().getLocationId(), accumulatedSeries );
 		} );
 
@@ -42,7 +42,7 @@ public class DataTransformUtils {
 	}
 
 	public static Map<String, Properties> hotSpotJSONToPropertiesMap( HotSpot hotSpot ) {
-		Map<String, Properties> propertiesMap = new HashMap<String, Properties>();
+		Map<String, Properties> propertiesMap = new HashMap<>();
 		hotSpot.getFeatures().forEach( feature -> {
 			propertiesMap.put( feature.getProperties().getId(), feature.getProperties() );
 		} );
@@ -51,7 +51,7 @@ public class DataTransformUtils {
 	}
 
 	public static Map<String, Image> slideMappingImageToMap( SlideMapping slideMapping ) {
-		Map<String, Image> slideMappingImageMap = new HashMap<String, Image>();
+		Map<String, Image> slideMappingImageMap = new HashMap<>();
 		slideMapping.getSlideImages().getList().forEach( slideImage -> {
 			slideMappingImageMap.put( slideImage.getId(), slideImage );
 		} );

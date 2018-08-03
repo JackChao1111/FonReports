@@ -159,7 +159,7 @@ public class FonReportFloodPowerPointProcess {
 
 								// Create Taiwan rainfall 6hr forecasting table
 								// info.
-								List<String[]> rainfall6hrForecasting = new ArrayList<String[]>();
+								List<String[]> rainfall6hrForecasting = new ArrayList<>();
 								slideMapping.getCounties().getList().forEach( county -> {
 									BigDecimal hour6 = PiSeriesUtils.calculateAccumulate(
 											countyPiTimeSeriesArrayMap.get( county.getId() ), 74, 79 );
@@ -219,7 +219,7 @@ public class FonReportFloodPowerPointProcess {
 										taiwanHotSpotImage );
 
 								// Create hot spot of count and each county.
-								List<String[]> hotSpotCount = new ArrayList<String[]>();
+								List<String[]> hotSpotCount = new ArrayList<>();
 								SVGHotSpotImageCreator hotSpotImageCounty = new SVGHotSpotImageCreator();
 								ChartImageCreator chartImageCreator = new ChartImageCreator();
 								IntStream.range( 0, slideMapping.getCounties().getList().size() ).forEach( i -> {
@@ -235,9 +235,9 @@ public class FonReportFloodPowerPointProcess {
 													.get( slideMapping.getCounties().getList().get( i ).getId() ),
 											slideMapping.getCounties().getList().get( i ).geteName(), exportPath );
 									
-									mappings.put( "hour6", chartImageCreator.getHour6_forecasting().toString() );
-									mappings.put( "hour18", chartImageCreator.getHour18_historical().toString() );
-									mappings.put( "hour24", chartImageCreator.getHour24_combinee().toString() );
+									mappings.put( "hour6", chartImageCreator.getHour6_Forecasting().toString() );
+									mappings.put( "hour18", chartImageCreator.getHour18_Historical().toString() );
+									mappings.put( "hour24", chartImageCreator.getHour24_Combine().toString() );
 
 									// Add warning hot spot count by each
 									// county.
@@ -271,8 +271,8 @@ public class FonReportFloodPowerPointProcess {
 											}
 
 											// Create warning info.
-											List<String[]> countyEWContents = new ArrayList<String[]>();
-											List<String[]> countyIWContents = new ArrayList<String[]>();
+											List<String[]> countyEWContents = new ArrayList<>();
+											List<String[]> countyIWContents = new ArrayList<>();
 											for ( int propertiesNum = 0; propertiesNum < contentMaxSizeEW; propertiesNum++ ) {
 												if ( propertiesNum >= hotSpotImageCounty.getWarningPropertiesEW()
 														.size() ) {

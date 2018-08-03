@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -33,6 +34,7 @@ public class JSONTest {
 		String json = new String( Files.readAllBytes( this.path ) );
 
 		HotSpot hotSpot = JSONUtils.fromJSON( json, HotSpot.class );
+		Assert.assertNotNull( hotSpot );
 		System.out.println( hotSpot.getFeatures().get( 0 ).getProperties().getId() );
 	}
 }

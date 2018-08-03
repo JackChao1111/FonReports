@@ -4,6 +4,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,6 +33,8 @@ public class HttpConfigTest {
 	public void run() {
 		try {
 			HttpConfig httpConfig = XMLUtils.fromXML( this.path.toFile(), HttpConfig.class );
+			
+			Assert.assertNotNull( httpConfig );
 			System.out.println( httpConfig.getLogin().getUrl() );
 			System.out.println( httpConfig.getAccumulatedSeries().getList().get( 0 ).getUrl() );
 		} catch (Exception e) {

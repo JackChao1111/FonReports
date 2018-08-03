@@ -4,6 +4,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,6 +32,8 @@ public class PropertiesTest {
 	public void run() {
 		try {
 			ConfigProperties configProperties = new ConfigProperties( this.path );
+			
+			Assert.assertNotNull( configProperties );
 			System.out.println( configProperties.getExportFolder() );
 		} catch (Exception e) {
 			e.printStackTrace();

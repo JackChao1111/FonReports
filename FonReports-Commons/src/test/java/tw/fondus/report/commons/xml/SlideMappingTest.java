@@ -4,12 +4,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.google.common.base.Preconditions;
 
-import strman.Strman;
 import tw.fondus.commons.fews.pi.config.xml.util.XMLUtils;
 import tw.fondus.report.commons.xml.pptx.SlideMapping;
 
@@ -34,11 +34,9 @@ public class SlideMappingTest {
 		try {
 			SlideMapping slideMapping = XMLUtils.fromXML( this.path.toFile(), SlideMapping.class );
 
-			System.out.println( Strman.append( slideMapping.getCounties().getList().get( 0 ).getId(), ",",
-					slideMapping.getCounties().getList().get( 0 ).geteName() ) );
-			System.out.println( Strman.append( slideMapping.getSlideImages().getList().get( 0 ).getId(), ",",
-					slideMapping.getSlideImages().getList().get( 0 ).getValue(), ",",
-					slideMapping.getSlideImages().getList().get( 0 ).getLocation().getOffX().toString() ) );
+			Assert.assertNotNull( slideMapping );
+			System.out.println( slideMapping.getCounties().getList().get( 0 ).getId() );
+			System.out.println( slideMapping.getCounties().getList().get( 0 ).geteName() );
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
