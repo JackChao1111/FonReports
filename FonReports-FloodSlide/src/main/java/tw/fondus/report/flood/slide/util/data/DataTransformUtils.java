@@ -24,7 +24,7 @@ public class DataTransformUtils {
 	public static Map<String, PiTimeSeriesArray> piTimeSeriesCollectionToMap(
 			PiTimeSeriesCollection piTimeSeriesCollection ) {
 		Map<String, PiTimeSeriesArray> piTimeSeriesMap = new HashMap<>();
-		Stream.of( piTimeSeriesCollection.getTimeSeries() ).forEach( timeSeries -> {
+		Stream.of( piTimeSeriesCollection.getCollection() ).forEach( timeSeries -> {
 			piTimeSeriesMap.put( timeSeries.getHeader().getLocationId(), timeSeries );
 		} );
 
@@ -34,7 +34,7 @@ public class DataTransformUtils {
 	public static Map<String, PiAccumulatedSeries> piAccumulatedSeriesCollectionToMap(
 			PiAccumulatedSeriesCollection piAccumulatedSeriesCollection ) {
 		Map<String, PiAccumulatedSeries> piAccumulateSeriesMap = new HashMap<>();
-		Stream.of( piAccumulatedSeriesCollection.getAccumulatedSeries() ).forEach( accumulatedSeries -> {
+		Stream.of( piAccumulatedSeriesCollection.getCollection() ).forEach( accumulatedSeries -> {
 			piAccumulateSeriesMap.put( accumulatedSeries.getHeader().getLocationId(), accumulatedSeries );
 		} );
 

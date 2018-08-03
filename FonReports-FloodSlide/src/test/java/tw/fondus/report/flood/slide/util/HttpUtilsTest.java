@@ -45,7 +45,7 @@ public class HttpUtilsTest {
 					if(accumulate.getId().equals( "County" )){
 						Optional<PiTimeSeriesCollection> optPiTimeSeriesCollection = HttpUtils.getTimeSeriesArray( accumulate.getUrl(), response );
 						optPiTimeSeriesCollection.ifPresent( piTimeSeriesCollection -> {
-							this.piTimeSeriesArray = piTimeSeriesCollection.getTimeSeries();
+							this.piTimeSeriesArray = piTimeSeriesCollection.getCollection();
 							System.out.println( piTimeSeriesCollection.getTimeZero() );
 						});
 					}
