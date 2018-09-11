@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SlideMapping>
+	<counties>
+		<county id="CT063" eName="Taipei" cName="臺北" />
+		<county id="CT065" eName="NewTaipei" cName="新北" />
+		<county id="CT017" eName="Keelung" cName="基隆" />
+		<county id="CT068" eName="Taoyuan" cName="桃園" />
+		<county id="CT004" eName="Hsinchu" cName="新竹" />
+		<county id="CT002" eName="Yilan" cName="宜蘭" />
+		<county id="CT005" eName="Miaoli" cName="苗栗" />
+		<county id="CT066" eName="Taichung" cName="臺中" />
+		<county id="CT013" eName="Nantou" cName="南投" />
+		<county id="CT007" eName="Chunghua" cName="彰化" />
+		<county id="CT009" eName="Yunlin" cName="雲林" />
+		<county id="CT010" eName="Chiayi" cName="嘉義" />
+		<county id="CT067" eName="Tainan" cName="臺南" />
+		<county id="CT064" eName="Kaohsiung" cName="高雄" />
+		<county id="CT008" eName="Pingtung" cName="屏東" />
+		<county id="CT015" eName="Hualien" cName="花蓮" />
+		<county id="CT014" eName="Taitung" cName="臺東" />
+	</counties>
+	<slideImages>
+		<image id="Taiwan_Rainfall" value="Taiwan_Rainfall.png">
+			<location>
+				<offX>0</offX>
+				<offY>55</offY>
+				<extcX>350</extcX>
+				<extcY>420</extcY>
+			</location>
+		</image>
+		<image id="Taiwan" value="Taiwan.png">
+			<location>
+				<offX>0</offX>
+				<offY>55</offY>
+				<extcX>350</extcX>
+				<extcY>420</extcY>
+			</location>
+		</image>
+		<image id="Taipei" value="Taipei.png">
+			<location>
+				<offX>-90</offX>
+				<offY>80</offY>
+				<extcX>720</extcX>
+				<extcY>432</extcY>
+			</location>
+		</image>
+		<image id="NewTaipei" value="NewTaipei.png">
+			<location>
+				<offX>0</offX>
+				<offY>140</offY>
+				<extcX>500</extcX>
+				<extcY>300</extcY>
+			</location>
+		</image>
+		<image id="Keelung" value="Keelung.png">
+			<location>
+				<offX>-10</offX>
+				<offY>140</offY>
+				<extcX>250</extcX>
+				<extcY>204</extcY>
+			</location>
+		</image>
+		<image id="Taoyuan" value="Taoyuan.png">
+			<location>
+				<offX>-55</offX>
+				<offY>80</offY>
+				<extcX>500</extcX>
+				<extcY>437.5</extcY>
+			</location>
+		</image>
+		<image id="Hsinchu" value="Hsinchu.png">
+			<location>
+				<offX>0</offX>
+				<offY>100</offY>
+				<extcX>500</extcX>
+				<extcY>300</extcY>
+			</location>
+		</image>
+		<image id="Yilan" value="Yilan.png">
+			<location>
+				<offX>-65</offX>
+				<offY>25</offY>
+				<extcX>475</extcX>
+				<extcY>415.7</extcY>
+			</location>
+		</image>
+		<image id="Miaoli" value="Miaoli.png">
+			<location>
+				<offX>-50</offX>
+				<offY>120</offY>
+				<extcX>380</extcX>
+				<extcY>333</extcY>
+			</location>
+		</image>
+		<image id="Taichung" value="Taichung.png">
+			<location>
+				<offX>0</offX>
+				<offY>30</offY>
+				<extcX>400</extcX>
+				<extcY>300</extcY>
+			</location>
+		</image>
+		<image id="Nantou" value="Nantou.png">
+			<location>
+				<offX>-50</offX>
+				<offY>100</offY>
+				<extcX>400</extcX>
+				<extcY>300</extcY>
+			</location>
+		</image>
+		<image id="Chunghua" value="Chunghua.png">
+			<location>
+				<offX>10</offX>
+				<offY>120</offY>
+				<extcX>400</extcX>
+				<extcY>240</extcY>
+			</location>
+		</image>
+		<image id="Yunlin" value="Yunlin.png">
+			<location>
+				<offX>0</offX>
+				<offY>100</offY>
+				<extcX>360</extcX>
+				<extcY>270</extcY>
+			</location>
+		</image>
+		<image id="Chiayi" value="Chiayi.png">
+			<location>
+				<offX>0</offX>
+				<offY>100</offY>
+				<extcX>360</extcX>
+				<extcY>240.3</extcY>
+			</location>
+		</image>
+		<image id="Tainan" value="Tainan.png">
+			<location>
+				<offX>0</offX>
+				<offY>120</offY>
+				<extcX>400</extcX>
+				<extcY>240</extcY>
+			</location>
+		</image>
+		<image id="Kaohsiung" value="Kaohsiung.png">
+			<location>
+				<offX>0</offX>
+				<offY>100</offY>
+				<extcX>400</extcX>
+				<extcY>280</extcY>
+			</location>
+		</image>
+		<image id="Pingtung" value="Pingtung.png">
+			<location>
+				<offX>-50</offX>
+				<offY>100</offY>
+				<extcX>440</extcX>
+				<extcY>342.2</extcY>
+			</location>
+		</image>
+		<image id="Hualien" value="Hualien.png">
+			<location>
+				<offX>0</offX>
+				<offY>100</offY>
+				<extcX>440</extcX>
+				<extcY>342.2</extcY>
+			</location>
+		</image>
+		<image id="Taitung" value="Taitung.png">
+			<location>
+				<offX>-20</offX>
+				<offY>100</offY>
+				<extcX>440</extcX>
+				<extcY>342.2</extcY>
+			</location>
+		</image>
+	</slideImages>
+</SlideMapping>
