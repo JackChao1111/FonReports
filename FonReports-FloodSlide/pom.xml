@@ -10,7 +10,7 @@
 		<version>0.5.0</version>
 	</parent>
 
-	<artifactId>fon-reports-floodslide</artifactId>
+	<artifactId>fon-reports-floodslide-search</artifactId>
 
 	<name>FonReports-FloodSlide</name>
 	<url>http://maven.apache.org</url>
