@@ -1,5 +1,6 @@
-package tw.fondus.report.flood.slide.util;
+package tw.fondus.report.commons.util;
 
+import java.security.GeneralSecurityException;
 import java.util.Optional;
 
 import strman.Strman;
@@ -16,11 +17,17 @@ import tw.fondus.commons.web.pi.service.impl.CommonsHttpService;
  *
  */
 public class HttpUtils {
-	private static final String COMMON_URL = "http://localhost/";
+	private static final String COMMON_URL = "https://localhost/REST/api/v1/";
 	private static IHttpPiService httpService;
 
 	static {
-		httpService = new CommonsHttpService();
+		CommonsHttpService commonsHttpService = new CommonsHttpService();
+		try {
+			commonsHttpService.setClient( HttpClientUtils.getSSLClient( commonsHttpService.getClient() ) );
+		} catch (GeneralSecurityException e) {
+			e.printStackTrace();
+		}
+		httpService = commonsHttpService;
 	}
 
 	/**

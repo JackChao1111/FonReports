@@ -16,6 +16,7 @@ import tw.fondus.commons.fews.pi.config.xml.util.XMLUtils;
 import tw.fondus.commons.fews.pi.json.timeseries.PiTimeSeriesArray;
 import tw.fondus.commons.fews.pi.json.timeseries.PiTimeSeriesCollection;
 import tw.fondus.commons.fews.pi.json.user.UserResponse;
+import tw.fondus.report.commons.util.HttpUtils;
 import tw.fondus.report.flood.slide.util.chart.ChartImageCreator;
 import tw.fondus.report.flood.slide.util.data.DataTransformUtils;
 import tw.fondus.report.flood.slide.xml.http.HttpConfig;
