@@ -13,6 +13,7 @@ import org.docx4j.dml.CTTableRow;
 import org.pptx4j.pml.CTGraphicalObjectFrame;
 
 import strman.Strman;
+import tw.fondus.report.commons.slide.ITable;
 
 /**
  * Table for county hot spot of external water count.
@@ -20,7 +21,7 @@ import strman.Strman;
  * @author Chao
  *
  */
-public class CountyEWTable implements Table{
+public class CountyEWTable implements ITable{
 	private org.docx4j.dml.ObjectFactory dmlFactory;
 	private org.pptx4j.pml.ObjectFactory pmlFactory;
 	private CTTable ctTable;

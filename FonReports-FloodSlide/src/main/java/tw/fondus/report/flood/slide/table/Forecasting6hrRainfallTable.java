@@ -12,13 +12,15 @@ import org.docx4j.dml.CTTableGrid;
 import org.docx4j.dml.CTTableRow;
 import org.pptx4j.pml.CTGraphicalObjectFrame;
 
+import tw.fondus.report.commons.slide.ITable;
+
 /**
  * Table for Taiwan county rainfall 6hr forecasting.
  * 
  * @author Chao
  *
  */
-public class Forecasting6hrRainfallTable implements Table {
+public class Forecasting6hrRainfallTable implements ITable {
 
 	private org.docx4j.dml.ObjectFactory dmlFactory;
 	private org.pptx4j.pml.ObjectFactory pmlFactory;

@@ -1,4 +1,4 @@
-package tw.fondus.report.flood.slide.table;
+package tw.fondus.report.commons.slide;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import org.pptx4j.pml.CTGraphicalObjectFrame;
  * @author Chao
  *
  */
-public interface Table {
+public interface ITable {
 
 	/**
 	 * Common process for create table for slide part.

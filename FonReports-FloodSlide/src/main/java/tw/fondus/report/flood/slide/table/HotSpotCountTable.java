@@ -12,13 +12,15 @@ import org.docx4j.dml.CTTableGrid;
 import org.docx4j.dml.CTTableRow;
 import org.pptx4j.pml.CTGraphicalObjectFrame;
 
+import tw.fondus.report.commons.slide.ITable;
+
 /**
  * Table for Taiwan hot spot count.
  * 
  * @author Chao
  *
  */
-public class HotSpotCountTable implements Table {
+public class HotSpotCountTable implements ITable {
 	private org.docx4j.dml.ObjectFactory dmlFactory;
 	private org.pptx4j.pml.ObjectFactory pmlFactory;
 	private CTTable ctTable;

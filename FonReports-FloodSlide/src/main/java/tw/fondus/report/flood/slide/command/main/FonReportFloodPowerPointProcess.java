@@ -39,6 +39,7 @@ import tw.fondus.commons.util.time.TimeUtils;
 import tw.fondus.report.commons.util.ReportsPptxUtils;
 import tw.fondus.report.commons.xml.pptx.Image;
 import tw.fondus.report.commons.xml.pptx.SlideMapping;
+import tw.fondus.report.commons.slide.ITable;
 import tw.fondus.report.commons.util.HttpUtils;
 import tw.fondus.report.flood.json.hotspot.HotSpot;
 import tw.fondus.report.flood.json.hotspot.Properties;
@@ -48,7 +49,6 @@ import tw.fondus.report.flood.slide.table.CountyEWTable;
 import tw.fondus.report.flood.slide.table.CountyIWTable;
 import tw.fondus.report.flood.slide.table.Forecasting6hrRainfallTable;
 import tw.fondus.report.flood.slide.table.HotSpotCountTable;
-import tw.fondus.report.flood.slide.table.Table;
 import tw.fondus.report.flood.slide.util.chart.ChartImageCreator;
 import tw.fondus.report.flood.slide.util.data.DataTransformUtils;
 import tw.fondus.report.flood.slide.util.svg.SVGHotSpotImageCreator;
@@ -169,7 +169,7 @@ public class FonReportFloodPowerPointProcess {
 
 								// Add Taiwan rainfall 6hr forecasting table
 								// into slide.
-								Table forecasting6hrTable = new Forecasting6hrRainfallTable( 2302791, 5100911, 4944980,
+								ITable forecasting6hrTable = new Forecasting6hrRainfallTable( 2302791, 5100911, 4944980,
 										1048887 );
 								forecasting6hrTable.createGrid( rainfall6hrForecasting );
 								ReportsPptxUtils.addTable( slidePart, forecasting6hrTable.getTable() );
@@ -315,13 +315,13 @@ public class FonReportFloodPowerPointProcess {
 											
 											// Add external water table into
 											// slide.
-											Table countyEWTable = new CountyEWTable( 5546381, 2353061, 3299410,
+											ITable countyEWTable = new CountyEWTable( 5546381, 2353061, 3299410,
 													1573475 );
 											countyEWTable.createGrid( countyEWContents );
 											ReportsPptxUtils.addTable( slidePartCounty, countyEWTable.getTable() );
 
 											// Add inner water table into slide.
-											Table countyIWTable = new CountyIWTable( 5546382, 2454778, 3299409,
+											ITable countyIWTable = new CountyIWTable( 5546382, 2454778, 3299409,
 													4250822 );
 											countyIWTable.createGrid( countyIWContents );
 											ReportsPptxUtils.addTable( slidePartCounty, countyIWTable.getTable() );
@@ -336,7 +336,7 @@ public class FonReportFloodPowerPointProcess {
 								} );
 
 								// Add Taiwan hot spot count table into slide.
-								Table hotSpotCountTable = new HotSpotCountTable( 2456798, 7080656, 4971557, 885490 );
+								ITable hotSpotCountTable = new HotSpotCountTable( 2456798, 7080656, 4971557, 885490 );
 								hotSpotCountTable.createGrid( hotSpotCount );
 								ReportsPptxUtils.addTable( slidePart, hotSpotCountTable.getTable() );
 
