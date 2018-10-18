@@ -43,7 +43,7 @@ public class SVGHotSpotImageCreator {
 	 */
 	public void createImageBySvg( Map<String, Properties> propertiesMap,
 			Map<String, PiAccumulatedSeries> piAccumulateSeriesMap, String svgPath, String svgFileNameWithOutExt,
-			String exportPtah ) {
+			String exportPath ) {
 		try {
 			File svgFile = new File( Strman.append( svgPath, StringUtils.PATH, svgFileNameWithOutExt, ".svg" ) );
 
@@ -98,8 +98,8 @@ public class SVGHotSpotImageCreator {
 					}
 				} );
 
-				String tempSvgPath = Strman.append( exportPtah, StringUtils.PATH, svgFileNameWithOutExt, ".svg" );
-				String exportImagePath = Strman.append( exportPtah, StringUtils.PATH, svgFileNameWithOutExt, ".png" );
+				String tempSvgPath = Strman.append( exportPath, StringUtils.PATH, svgFileNameWithOutExt, ".svg" );
+				String exportImagePath = Strman.append( exportPath, StringUtils.PATH, svgFileNameWithOutExt, ".png" );
 
 				Dom4JUtils.write( svgDocument, tempSvgPath );
 				SVGUtils.setWidth( 4000 );

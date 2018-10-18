@@ -41,7 +41,7 @@ public class SVGRainfallImageCreator {
 	 * @param exportPtah
 	 */
 	public void createImageBySvg( Map<String, PiTimeSeriesArray> piTimeSeriesArrayMap, String svgPath,
-			String svgFileNameWithOutExt, String exportPtah ) {
+			String svgFileNameWithOutExt, String exportPath ) {
 		try {
 			File svgFile = new File( Strman.append( svgPath, StringUtils.PATH, svgFileNameWithOutExt, ".svg" ) );
 
@@ -73,8 +73,8 @@ public class SVGRainfallImageCreator {
 					}
 				} );
 
-				String tempSvgPath = Strman.append( exportPtah, StringUtils.PATH, svgFileNameWithOutExt, ".svg" );
-				String exportImagePath = Strman.append( exportPtah, StringUtils.PATH, svgFileNameWithOutExt,
+				String tempSvgPath = Strman.append( exportPath, StringUtils.PATH, svgFileNameWithOutExt, ".svg" );
+				String exportImagePath = Strman.append( exportPath, StringUtils.PATH, svgFileNameWithOutExt,
 						"_Rainfall.png" );
 
 				Dom4JUtils.write( svgDocument, tempSvgPath );
