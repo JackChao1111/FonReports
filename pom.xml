@@ -217,5 +217,6 @@
 		<module>FonReports-Commons</module>
 		<module>FonReports-CLI</module>
 		<module>FonReports-FloodSlide</module>
+		<module>FonReports-FloodSlide-RealTime</module>
 	</modules>
 </project>

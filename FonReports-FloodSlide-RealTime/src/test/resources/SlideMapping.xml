@@ -1,0 +1,34 @@
+<SlideMapping>
+	<county region="Central" city="Taichung" name="臺中市">
+		<imageLocation>
+			<offX>0</offX>
+			<offY>50</offY>
+			<extcX>590</extcX>
+			<extcY>400</extcY>
+		</imageLocation>
+	</county>
+	<county region="Southern" city="Tainan" name="臺南市">
+		<imageLocation>
+			<offX>-120</offX>
+			<offY>50</offY>
+			<extcX>640</extcX>
+			<extcY>320</extcY>
+		</imageLocation>
+	</county>
+	<county region="Southern" city="Kaohsiung" name="高雄市">
+		<imageLocation>
+			<offX>-200</offX>
+			<offY>-30</offY>
+			<extcX>600</extcX>
+			<extcY>637</extcY>
+		</imageLocation>
+	</county>
+	<county region="Southern" city="Pingtung" name="屏東縣">
+		<imageLocation>
+			<offX>-170</offX>
+			<offY>-10</offY>
+			<extcX>590</extcX>
+			<extcY>600</extcY>
+		</imageLocation>
+	</county>
+</SlideMapping>
